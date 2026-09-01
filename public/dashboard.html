@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Paletes PBR - LLE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --amarelo: #FAC318;
+      --verde: #0F8C3B;
+      --azul: #0071FE;
+      --azul-escuro: #041747;
+      --branco: #FFFFFF;
+      --cinza-claro: #F2F2F2;
+      --cinza-borda: #D9D9D9;
+    }
+    body { font-family: 'Montserrat', 'Calibri', sans-serif; background-color: var(--cinza-claro); color: #333; }
+    .header { background-color: var(--azul-escuro); color: var(--branco); padding: 20px; }
+    .header h1 { font-size: 28px; font-weight: 700; }
+    .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+    table { width: 100%; border-collapse: collapse; background: var(--branco); }
+    thead { background-color: var(--azul-escuro); color: var(--branco); }
+    th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid var(--cinza-borda); }
+    tbody tr:nth-child(even) { background-color: var(--cinza-claro); }
+    .badge { display: inline-block; padding: 4px 10px; border-radius: 12px; font-weight: 600; font-size: 11px; }
+    .badge-ok { background-color: rgba(15, 140, 59, 0.1); color: var(--verde); }
+    .badge-pending { background-color: rgba(250, 195, 24, 0.1); color: #c89c00; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>📦 Dashboard Paletes PBR</h1>
+    <p>Controle em tempo real - LLE Ferragens</p>
+  </div>
+  <div class="container">
+    <div id="conteudo"><p>Carregando...</p></div>
+  </div>
+  <script>
+    async function carregar() {
+      const res = await fetch('/api/paletes');
+      const data = await res.json();
+      let html = '<table><thead><tr><th>OC</th><th>Status</th><th>Transportadora</th><th>Rota</th><th>QTD</th><th>Devolvida</th><th>Valor</th></tr></thead><tbody>';
+      data.paletes.forEach(p => {
+        const badge = p.status === 'DEVOLVIDA' ? '<span class="badge badge-ok">✓ OK</span>' : '<span class="badge badge-pending">⏱ Aberto</span>';
+        html += `<tr><td>${p.oc}</td><td>${badge}</td><td>${p.transportadora}</td><td>${p.rota}</td><td>${p.qtd_pallets}</td><td>${p.qtd_devolvida || '-'}</td><td>R$ ${p.valor_total.toFixed(2)}</td></tr>`;
+      });
+      html += '</tbody></table>';
+      document.getElementById('conteudo').innerHTML = html;
+    }
+    carregar();
+    setInterval(carregar, 30000);
+  </script>
+</body>
+</html>

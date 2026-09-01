@@ -1,0 +1,15 @@
+{
+  "name": "lle-paletes-dashboard",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "google-auth-library": "^9.11.0",
+    "googleapis": "^140.0.1",
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  }
+}
