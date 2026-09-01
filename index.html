@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Paletes PBR - LLE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Montserrat', 'Calibri', sans-serif; background: #041747; color: #333; }
+    .header { background: #041747; color: #fff; padding: 20px; text-align: center; }
+    .container { max-width: 1200px; margin: 20px auto; padding: 20px; background: #fff; border-radius: 8px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    thead { background: #041747; color: #fff; }
+    th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+    tbody tr:nth-child(even) { background: #f2f2f2; }
+    .status-ok { color: #0F8C3B; font-weight: bold; }
+    .status-pending { color: #FAC318; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>📦 Dashboard Paletes PBR</h1>
+    <p>Controle em tempo real - LLE Ferragens</p>
+  </div>
+  
+  <div class="container">
+    <div id="stats">
+      <p>Carregando dados...</p>
+    </div>
+    <table id="tabela">
+      <thead>
+        <tr>
+          <th>OC</th>
+          <th>Transportadora</th>
+          <th>Rota</th>
+          <th>QTD</th>
+          <th>Devolvida</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="tbody">
+        <tr><td
+git add public/index.html
+git commit -m "feat: index.html para GitHub Pages"
+git push origin main
