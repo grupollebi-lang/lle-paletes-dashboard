@@ -1,0 +1,31 @@
+name: Sincronizar Google Sheets
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Instalar dependências
+        run: npm install
+      
+      - name: Sincronizar dados
+        run: node sync.js
+        env:
+          GOOGLE_SHEETS_ID: ${{ secrets.GOOGLE_SHEETS_ID }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+      
+      - name: Commit e Push
+        run: |
+          git config --local user.email "bot@lle.com"
+          git config --local user.name "LLE Bot"
+          git add public/data.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: atualizar dados $(date)" && git push)
